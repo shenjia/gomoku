@@ -627,6 +627,16 @@ export default {
       if (this.thinking) return
 
       if (e.button == 0) {
+        // 检查是否点击了刚下的棋子
+        if (!this.isAITurn && this.position.length > 0 && this.winline.length == 0) {
+          let lastMove = this.position[this.position.length - 1]
+          if (pos[0] == lastMove[0] && pos[1] == lastMove[1]) {
+            // 点击了刚下的棋子,触发AI推算
+            this.startThink()
+            return
+          }
+        }
+
         if ((this.isEmpty(pos) && this.winline.length == 0) || this.isAITurn) {
           if (!this.isAITurn) {
             if (this.rule == 5 && !this.swaped && this.position.length == 1) {
